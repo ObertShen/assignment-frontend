@@ -6,7 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var index = require('./routes/index')
-var allowCross = require('./middlewares/cros');
+var cros = require('./middlewares/cros');
 
 var app = express();
 
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // 添加自定义的中间件
-app.use(allowCross);
+app.use(cros);
 
 app.use(function(err, req, res, next) {
   // 如果中间件返回错误，则重定向到原有接口
