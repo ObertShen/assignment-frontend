@@ -2,11 +2,15 @@
 
 let querystring = require('querystring');
 let router = require('express').Router();
+let User = require('../models/user');
 
 router.get('/me', function(req, res, next) {
-	// let param = {sessionToken: req.query.sessionToken};
-	// console.log(req.query.sessionToken);
-    res.send("Hello world"); 
+	let user = new User();
+	user.find().then(function(result) {
+		res.send(result);
+	}).catch(function(err) {
+		next(err)
+	})
  });
 
 module.exports = router;
