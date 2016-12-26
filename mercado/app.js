@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var product = require('./routes/product');
+var user = require('./routes/user');
 var cros = require('./middlewares/cros');
 var db = require('./middlewares/db');
 
@@ -31,12 +32,13 @@ app.use(cros);
 // app.use(db);
 
 app.get('/about', function(req, res) {
-  res.render('index', { currentTime: new Date() });
+  res.render('about', { currentTime: new Date() });
 });
 
 // 可以将一类的路由单独保存在一个文件中
 app.use('/', index);
-app.use('/', product)
+app.use('/', product);
+app.use('/', user);
 
 app.use(function(req, res, next) {
   // 如果任何一个路由都没有返回响应，则抛出一个 404 异常给后续的异常处理器

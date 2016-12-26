@@ -27,11 +27,15 @@ User.prototype.find = function() {
 };
 
 User.prototype.login = function(form) {
+    return this._get({email: form.email, password: form.password});
+};
+
+User.prototype._get = function(obj) {
     let that = this;
     return new Promise(function(resolve, reject) {
         that._conndb().then(function(db){
             let collection = db.collection('user');
-            collection.find({'email': form.email, 'password': form.password}).toArray(function(err, docs) {
+            collection.find(obj).toArray(function(err, docs) {
                 if (err) reject(err);
                 else resolve(docs[0]);
             });
@@ -41,12 +45,17 @@ User.prototype.login = function(form) {
     });
 };
 
+
 User.prototype.register = function(form) {
+    return this._add({name:form.name, email: form.email, password: form.password});
+};
+
+User.prototype._add = function(obj) {
     let that = this;
     return new Promise(function(resolve, reject) {
         that._conndb().then(function(db){
             let collection = db.collection('user');
-            collection.insertOne({name:form.name, email: form.email, password: form.password}, function(err, result) {
+            collection.insertOne(obj, function(err, result) {
                 if (err) reject(err);
                 else resolve(result);
             });

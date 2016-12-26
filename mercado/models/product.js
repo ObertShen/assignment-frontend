@@ -18,7 +18,7 @@ Product.prototype.find = function() {
     return new Promise(function(resolve, reject) {
         that._conndb().then(function(db) {
             let collection = db.collection('product');
-            collection.find({}).toArray(function(err, docs) {
+            collection.find({}).sort({ createdAt: -1 }).toArray(function(err, docs) {
                 if (err) reject(err);
                 else resolve(docs);
             });
@@ -43,12 +43,12 @@ Product.prototype.get = function() {
     });
 };
 
-Product.prototype.add = function(newProduct) {
+Product.prototype.add = function(obj) {
     let that = this;
     return new Promise(function(resolve, reject) {
         that._conndb().then(function(db){
             let collection = db.collection('product');
-            collection.insertOne(newProduct, function(err, result) {
+            collection.insertOne(obj, function(err, result) {
                 if (err) reject(err);
                 else resolve(result);
             });
