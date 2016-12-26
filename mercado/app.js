@@ -21,13 +21,14 @@ app.use(express.static('public'));
 app.use(timeout('15s'));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 // 添加跨域设置的中间件
 app.use(cros);
 // 添加初始化数据库设置的中间件
-app.use(db);
+// app.use(db);
 
 app.get('/about', function(req, res) {
   res.render('index', { currentTime: new Date() });

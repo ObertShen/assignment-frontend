@@ -27,7 +27,7 @@ router.post('/login', function(req, res, next) {
 	if (req.body) {
 		req.body.password = crypto.createHash('md5').update(req.body.password).digest('hex')
 		user.login(req.body).then(function(result) {
-		if (result.ok) res.send(result);
+		if (result) res.send(result);
 		else res.redirect(302, '/login');
 		}).catch(function(err) {
 			next(err);
