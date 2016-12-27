@@ -4,7 +4,7 @@ let MongoClient = require('mongodb').MongoClient
   , assert = require('assert');
 
   // Connection URL
-let connUrl = 'mongodb://123.56.166.67:27017/mercado';
+let connUrl = 'mongodb://' + process.env.MongoURL +'/mercado';
 
 let dbConn = null;
 
