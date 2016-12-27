@@ -3,20 +3,17 @@
 let qiniu = require("qiniu");
 
 //需要填写你的 Access Key 和 Secret Key
-qiniu.conf.ACCESS_KEY = '-Jr2-ZZqpZK9acf5ZiX4jKQrmy8qE2SFvFiSIuXI';
-qiniu.conf.SECRET_KEY = 'DkrecKEa36dZjhMQrL4jzP5DxlyLpDAdjYlhLC9W';
+qiniu.conf.ACCESS_KEY = process.env.Qiniu_Access_Key;
+qiniu.conf.SECRET_KEY = process.env.Qiniu_Secret_Key;
 
 //要上传的空间
-let bucket = 'tonny-lab';
+let bucket = process.env.Qiniu_Lab_Bucket;
 
 //构建上传策略函数
 function uptoken(bucket, key) {
   let putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key);
   return putPolicy.token();
 }
-
-//要上传文件的本地路径
-let filePath = './ruby-logo.png';
 
 let uploadEndpoint = 'http://oiqp6hhcl.bkt.clouddn.com/'
 
